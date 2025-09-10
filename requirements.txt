@@ -1,0 +1,6 @@
+basicsr
+realesrgan
+opencv-python
+torch
+numpy
+torchvision
