@@ -1,67 +1,87 @@
-# 720p to 1080p Video Upscaler
+# High-Quality Video and Image Super-Resolution
 
-This project provides a Python script to upscale videos using the Real-ESRGAN model.
+This project provides a powerful tool for upscaling videos and images to higher resolutions using advanced AI models. It leverages Real-ESRGAN to achieve state-of-the-art results in super-resolution, enhancing the quality and detail of your media.
+
+## Features
+
+- **High-Quality Upscaling:** Utilizes Real-ESRGAN, a cutting-edge super-resolution model, to produce sharp and detailed results.
+- **Video and Image Support:** Upscale both videos (MP4, MKV, AVI, MOV) and images (PNG, JPG, WEBP).
+- **Flexible Resolution Control:** Choose between a specific scaling factor (e.g., 2x, 4x) or a target resolution (e.g., 1080p, 4k).
+- **Hardware Accelerated:** Leverages NVIDIA GPUs for fast processing.
+- **Audio Preservation:** Automatically preserves the original audio track in upscaled videos.
+
+## Prerequisites
+
+- **Python 3.8+**
+- **NVIDIA GPU** with CUDA and cuDNN installed.
+- **ffmpeg:** Required for video processing. You can install it using your system's package manager (e.g., `sudo apt-get install ffmpeg` on Debian/Ubuntu).
 
 ## Installation
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/your-repository-name.git
-    cd your-repository-name
-    ```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
+   ```
 
-2.  **Install Python dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+2. **Install the required Python packages:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3.  **Install system dependencies:**
-    This script requires `ffmpeg` and `ffprobe` to be installed on your system. You can install them using your system's package manager.
-
-    *   **On Debian/Ubuntu:**
-        ```bash
-        sudo apt-get update
-        sudo apt-get install ffmpeg
-        ```
-
-    *   **On macOS (using Homebrew):**
-        ```bash
-        brew install ffmpeg
-        ```
-
-    *   **On Windows:**
-        Download the binaries from the official FFmpeg website and add them to your system's PATH.
-
-4.  **Download Real-ESRGAN Models:**
-    You need to download the pre-trained Real-ESRGAN models and place them in the `~/.cache/realesrgan/` directory.
-
-    *   **For 4x upscaling:**
-        ```bash
-        wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth -P ~/.cache/realesrgan/
-        ```
-
-    *   **For 2x upscaling:**
-        ```bash
-        wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth -P ~/.cache/realesrgan/
-        ```
+3. **Download the pre-trained models:**
+   Download the `RealESRGAN_x4plus.pth` and `RealESRGAN_x2plus.pth` models and place them in the `models` directory. You can find the models in the original Real-ESRGAN repository or other trusted sources.
 
 ## Usage
 
-To upscale a video, run the `upscale_video.py` script with the input and output file paths as arguments. You can also specify the upscaling factor using the `--scale` argument.
+### Upscaling a Single File
+
+To upscale a single image or video, use the `super_resolution.py` script with the `input_path` and `output_path` arguments.
+
+**Example (Upscale to 4k):**
 
 ```bash
-python upscale_video.py <input_video> <output_video> [--scale <2_or_4>]
+python super_resolution.py path/to/your/input.mp4 path/to/your/output.mp4 --target-resolution 4k
 ```
 
-For example, to upscale a video using the 2x model:
+**Example (Upscale by a factor of 2):**
 
 ```bash
-python upscale_video.py my_720p_video.mp4 my_1080p_video.mp4 --scale 2
+python super_resolution.py path/to/your/image.jpg path/to/your/output.jpg --scale 2
 ```
 
-If you don't provide the `--scale` argument, it will default to 4x.
+### Upscaling a Directory
 
-The script will then:
-1.  Extract the frames and audio from the input video.
-2.  Upscale each frame using the selected Real-ESRGAN model.
-3.  Reassemble the upscaled frames with the original audio into a new video file.
+You can also process all files in a directory by providing the input and output directory paths.
+
+```bash
+python super_resolution.py path/to/your/input_directory path/to/your/output_directory --target-resolution 1080p
+```
+
+### Command-Line Arguments
+
+- `input_path`: Path to the input video, image, or directory.
+- `output_path`: Path to the output file or directory.
+- `--scale`: The upscaling factor (e.g., 1.5, 2.0). Mutually exclusive with `--target-resolution`.
+- `--target-resolution`: The target resolution (e.g., 1080p, 2k, 4k, 5k). Mutually exclusive with `--scale`.
+
+## Model Conversion
+
+The `convert_x4_model.py` script can be used to convert a x4 Real-ESRGAN model to x2 and x1 models.
+
+```bash
+python convert_x4_model.py
+```
+
+This will create `RealESRGAN_x2plus.pth` and `RealESRGAN_x1plus.pth` from `RealESRGAN_x4plus.pth` in the `models` directory.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+This project is built upon the excellent work of the following open-source projects:
+
+- **Real-ESRGAN:** [https://github.com/xinntao/Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN)
+- **BasicSR:** [https://github.com/xinntao/BasicSR](https://github.com/xinntao/BasicSR)
