@@ -10,6 +10,12 @@ This project provides a powerful tool for upscaling videos and images to higher 
 - **Hardware Accelerated:** Leverages NVIDIA GPUs for fast processing.
 - **Audio Preservation:** Automatically preserves the original audio track in upscaled videos.
 
+## macOS App
+
+A native macOS app with a user-friendly interface is available on the Mac App Store. Get it here: [Upscale & Enhance on the Mac App Store](https://apps.apple.com/us/app/upscale-enhance/id6753763810)
+
+![App Preview](app_preview.gif)
+
 ## Prerequisites
 
 - **Python 3.8+**
